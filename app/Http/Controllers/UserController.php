@@ -16,18 +16,6 @@ class UserController extends Controller
      {
          $this->middleware('auth');
      }
-    public function updateindex($id)
-    {
-
-        return view('user',[
-            'users' => user::all(),
-            'updateornot' => '編輯',
-            'id' => user::findOrFail($id)->id,
-            'name' => user::findOrFail($id)->name,
-            'email' => user::findOrFail($id)->email,
-            'superuser' =>user::findOrFail($id)->superuser
-        ]);
-    }
     public function index()
     {
         return view('user',[
@@ -93,7 +81,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('update_user',[
+            'user' => user::find($id)
+        ]);
     }
 
     /**
@@ -103,9 +93,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id,Request $input)
     {
-        
+        $user = User::find($id);
+        $validator = Validator::make($input->all(),[
+          'name' => 'required',
+          'email' => 'required'
+        ]);
+        if ($validator->fails()){
+            return redirect('/user/edit/'.$id)
+                        ->witherrors($validator);
+        }
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        if($input['superuser']!=null)$user->superuser=1;
+        else  $user->superuser = 0;
+        $user->save();
+        return redirect('/user');
     }
 
     /**

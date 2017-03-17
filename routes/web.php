@@ -31,6 +31,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/user', 'UserController@index');
 Route::get('/user/delete/{id}', 'UserController@destroy');
-Route::get('/user/update/{id}','UserController@updateindex');
+Route::get('/user/edit/{id}','UserController@edit');
 Route::post('/user', 'UserController@store');
-Route::post('/user/upadte/{id}', 'UserController@update');
+Route::put('/user/upadte/{id}', 'UserController@update');
