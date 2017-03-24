@@ -47,9 +47,9 @@
                             <div class="col-md-6">
 
                                 @if ($user->superuser==1)
-                                <input id="superuser" type="checkbox" class="form-control" name="superuser" value="{{ $user->superuser }}" checked>
+                                <input id="superuser" type="checkbox" class="form-control" name="superuser" checked>
                                 @else
-                                <input id="superuser" type="checkbox" class="form-control" name="superuser" value="{{ $user->superuser }}">
+                                <input id="superuser" type="checkbox" class="form-control" name="superuser" >
                                 @endif
 
                                 @if ($errors->has('superuser'))

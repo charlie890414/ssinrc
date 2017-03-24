@@ -12,7 +12,13 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-
+    <style media="screen">
+        @import url(//fonts.googleapis.com/earlyaccess/cwtexming.css);
+        body{
+            font-style: :'cwTeXMing', serif;
+            font-size: 16px;
+        }
+    </style>
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -35,9 +41,13 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    <a class="navbar-brand" href="/about">   關於我們   </a>
+                    <a class="navbar-brand" href="/declare">   公告事項   </a>
+                    <a class="navbar-brand" href="/class">   社課相關   </a>
+                    <a class="navbar-brand" href="https://www.facebook.com/ssinrc27/?ref=bookmarks">   粉絲團連結   </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -53,16 +63,18 @@
                             <li><a href="{{ route('login') }}">登入</a></li>
                             <li><a href="{{ route('register') }}">註冊</a></li>
                         @else
-                            @if(Auth::user()->superuser==true)
-                            <li><a href="/user">使用者管理</a></li>
-                            <li><a href="/post">文章管理</a></li>
-                            @endif
+
+                            <li><a href="/update">修改帳號</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    @if(Auth::user()->superuser==true)
+                                    <li><a href="/user">全體使用者管理</a></li>
+                                    <li><a href="/post">全體文章管理</a></li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -74,6 +86,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+
                                 </ul>
                             </li>
                         @endif
